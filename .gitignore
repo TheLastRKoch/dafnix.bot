@@ -1,0 +1,22 @@
+# Venv
+.banner
+.bannerpy
+.vm
+
+# config files
+.env
+
+# IDEs
+.vscode
+.idea
+
+# Build
+BannerPy.egg-info
+build
+dist
+
+# Cashe
+__pycache__
+
+# Config files
+config.json
