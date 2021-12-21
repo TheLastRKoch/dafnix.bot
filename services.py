@@ -1,6 +1,6 @@
 from os import environ as env
+import os
 import requests
-from requests import api
 import utils
 import json
 import re
@@ -67,3 +67,18 @@ class DafnixAPIService ():
         if response.status_code == 200:
             return json.loads(response.data)["msg"]
         return "It was not possible to update the URL"
+
+
+class TemplateManagerService ():
+    def read_template(self, template_name):
+        basedir = os.path.abspath(os.path.dirname(__file__))
+        templates_path = os.path.join(
+            basedir, env["TEMPLATE_PATH"], template_name+".md")
+        with open(templates_path) as f:
+            print(f.read())
+
+
+if __name__ == '__main__':
+
+    tms = TemplateManagerService()
+    tms.read_template("welcome")
