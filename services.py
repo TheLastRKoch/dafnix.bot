@@ -59,7 +59,7 @@ class DafnixAPIService ():
             "url": url
         })
 
-        response = self.__perform_request("DELETE", env["DAFNIX_API_URL"],
+        response = self.__perform_request("PATCH", env["DAFNIX_API_URL"],
                                           self.headers, body)
 
         if response.status_code == 200:
