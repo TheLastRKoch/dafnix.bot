@@ -35,14 +35,11 @@ class DafnixAPIService ():
     }
 
     def __perform_request(self, HTML_Verb, url, headers, body):
-        request = requests.request(HTML_Verb, url, headers=headers, data=body)
-        if request.status_code == 200:
-            dic_key = "msg"
-        else:
-            dic_key = "message"
+        response = requests.request(HTML_Verb, url, headers=headers, data=body)
+        dic_key = utils.get_key_for_status_code(response.status_code)
         return utils.generateResponse({
-            "body": json.loads(request.text)[dic_key],
-            "status_code": request.status_code
+            "body": json.loads(response.text)[dic_key],
+            "status_code": response.status_code
         })
 
     def get_URL(self):
@@ -51,9 +48,10 @@ class DafnixAPIService ():
 
         if response.status_code == 200:
             return str(json.loads(response.data)["msg"])
-        utils.log("Error", "Something went wrong with the request",
-                  json.loads(response.data)["msg"])
-        return "It was not possible to get the URL"
+        message = "It was not possible to get the URL"
+        utils.log("Error", message,
+                  response.data)
+        return message
 
     def update_url(self, url):
 
@@ -61,12 +59,15 @@ class DafnixAPIService ():
             "url": url
         })
 
-        response = self.__perform_request("PATCH", env["DAFNIX_API_URL"],
+        response = self.__perform_request("DELETE", env["DAFNIX_API_URL"],
                                           self.headers, body)
 
         if response.status_code == 200:
             return json.loads(response.data)["msg"]
-        return "It was not possible to update the URL"
+        message = "It was not possible to update the URL"
+        utils.log("Error", message,
+                  response.data)
+        return message
 
 
 class TemplateManagerService ():

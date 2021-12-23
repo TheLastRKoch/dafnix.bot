@@ -16,3 +16,10 @@ def log(type, message, description):
     if description is None:
         description = str(traceback.format_exc()).replace("\n", "")
     print(f"{'{'} {date}, {type}, {message}, {description} {'}'}")
+
+
+def get_key_for_status_code(status_code):
+    if status_code == 200:
+        return "msg"
+    else:
+        return "message"
