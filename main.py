@@ -44,7 +44,8 @@ def main() -> None:
         listen=env["HOST"],
         port=env["PORT"],
         url_path=env["TELEGRAM_BOT_TOKEN"],
-        webhook_url=env["DAFNIX_BOT_URL"] + env["TELEGRAM_BOT_TOKEN"])
+        webhook_url='https://yourherokuappname.herokuapp.com/' +
+        env["TELEGRAM_BOT_TOKEN"])
 
     # Run the bot until you press Ctrl-C or the process receives SIGINT,
     # SIGTERM or SIGABRT. This should be used most of the time, since
