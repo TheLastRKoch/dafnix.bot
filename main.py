@@ -40,8 +40,11 @@ def main() -> None:
     dispatcher.add_handler(MessageHandler(
         Filters.text & ~Filters.command, echo))
 
-    # Start the Bot
-    updater.start_polling()
+    updater.start_webhook(
+        listen=env["HOST"],
+        port=env["PORT"],
+        url_path=env["TELEGRAM_BOT_TOKEN"],
+        webhook_url=env["DAFNIX_BOT_URL"] + env["TELEGRAM_BOT_TOKEN"])
 
     # Run the bot until you press Ctrl-C or the process receives SIGINT,
     # SIGTERM or SIGABRT. This should be used most of the time, since
