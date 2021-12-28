@@ -40,12 +40,15 @@ def main() -> None:
     dispatcher.add_handler(MessageHandler(
         Filters.text & ~Filters.command, echo))
 
-    updater.start_webhook(
-        listen=env["HOST"],
-        port=env["PORT"],
-        url_path=env["TELEGRAM_BOT_TOKEN"],
-        webhook_url='https://dafnixbot.herokuapp.com/' +
-        env["TELEGRAM_BOT_TOKEN"])
+    if bool(env["ON_PRODUCTION"]):
+        updater.start_webhook(
+            listen=env["HOST"],
+            port=env["PORT"],
+            url_path=env["TELEGRAM_BOT_TOKEN"],
+            webhook_url='https://dafnixbot.herokuapp.com/' +
+            env["TELEGRAM_BOT_TOKEN"])
+    else:
+        updater.start_polling()
 
     # Run the bot until you press Ctrl-C or the process receives SIGINT,
     # SIGTERM or SIGABRT. This should be used most of the time, since
