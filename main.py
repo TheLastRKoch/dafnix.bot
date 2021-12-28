@@ -44,7 +44,7 @@ def main() -> None:
         listen=env["HOST"],
         port=env["PORT"],
         url_path=env["TELEGRAM_BOT_TOKEN"],
-        webhook_url='http://yourherokuappname.herokuapp.com/' +
+        webhook_url='https://yourherokuappname.herokuapp.com/' +
         env["TELEGRAM_BOT_TOKEN"])
 
     # Run the bot until you press Ctrl-C or the process receives SIGINT,
